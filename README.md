@@ -1,0 +1,1 @@
+# hw_mnist_project
