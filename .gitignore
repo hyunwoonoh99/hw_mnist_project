@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Deep Learning project specific
+data/
+results/
+*.pth
+*.pt
+checkpoints/
+runs/
+wandb/
