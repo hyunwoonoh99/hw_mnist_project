@@ -2,7 +2,16 @@ import os
 import copy
 import torch
 import torch.nn as nn
+import random
+import numpy as np
 
+def set_seed(seed=42):
+    """재현성을 위해 모든 랜덤 시드 고정."""
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    
 
 def train_one_epoch(model, loader, criterion, optimizer, device):
     """한 epoch 학습. 평균 loss와 정확도 반환."""
