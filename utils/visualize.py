@@ -94,3 +94,40 @@ def plot_tsne(features, labels, num_classes=10, title="t-SNE of Features",
     if save_path:
         plt.savefig(save_path, dpi=150, bbox_inches="tight")
     plt.show()
+
+
+def plot_model_comparison_curves(all_history, metric="val_acc", title=None, save_path=None):
+    """여러 모델의 learning curve를 한 그림에 겹쳐 그린다."""
+    plt.figure(figsize=(9, 6))
+    for name, hist in all_history.items():
+        epochs = range(1, len(hist[metric]) + 1)
+        plt.plot(epochs, hist[metric], marker="o", markersize=3, label=name)
+    plt.xlabel("Epoch")
+    plt.ylabel(metric)
+    plt.title(title or f"Model Comparison ({metric})")
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    if save_path:
+        plt.savefig(save_path, dpi=150, bbox_inches="tight")
+    plt.show()
+
+
+def plot_accuracy_bar(model_accs, title="Test Accuracy Comparison", save_path=None):
+    """모델별 test accuracy를 막대그래프로."""
+    names = list(model_accs.keys())
+    accs = list(model_accs.values())
+
+    plt.figure(figsize=(8, 5))
+    bars = plt.bar(names, accs, color=["#4C72B0", "#DD8452", "#55A868", "#C44E52"])
+    plt.ylabel("Test Accuracy")
+    plt.title(title)
+    plt.ylim(0.95, 1.0)
+    for bar, acc in zip(bars, accs):
+        plt.text(bar.get_x() + bar.get_width()/2, acc + 0.0005,
+                 f"{acc:.4f}", ha="center", va="bottom", fontsize=10)
+    plt.grid(True, alpha=0.3, axis="y")
+    plt.tight_layout()
+    if save_path:
+        plt.savefig(save_path, dpi=150, bbox_inches="tight")
+    plt.show()
